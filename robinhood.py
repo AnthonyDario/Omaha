@@ -17,3 +17,12 @@ class RobinhoodAPI:
         else:
             raise ValueError('Symbol {0} not found'.format(symbol))
 
+    def get_quotes(self, symbols):
+        ''' Gets quotes for a list of symbols
+        '''
+        symbol_string = ','.join(symbols)
+        r = requests.get('{0}/quotes/?symbols={1}'.format(self.base_url, symbol_string))
+        if r.status_code == requests.codes.ok:
+            return r.text
+        else:
+            raise ValueError('No symbols found'.format(symbol))
