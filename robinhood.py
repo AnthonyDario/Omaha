@@ -26,3 +26,19 @@ class RobinhoodAPI:
             return r.text
         else:
             raise ValueError('No symbols found'.format(symbol))
+
+    def get_historical_quotes(self, symbol, interval, span):
+        ''' gets the historical quotes for a symbol using the given interval and span
+
+        '''
+        url = '{0}/quotes/historical/{1}/?interval={2}&span={3}' \
+              .format(self.base_url, symbol, interval, span)
+        r = requests.get(url)
+        if r.status_code == requests.codes.ok:
+            return r.text
+        else:
+            raise ValueError(r.text)
+
+'''
+    GET /quotes/historicals/$symbol/[?interval=$i&span=$s&bounds=$b] interval=week|day|10minute|5minute|null(all) span=day|week|year|5year|all bounds=extended|regular|trading
+    '''
